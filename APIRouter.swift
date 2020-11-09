@@ -43,7 +43,7 @@ class APIRouter {
                             encoding: ParameterEncoding = JSONEncoding.default,
                             additionalQueryParams: Parameters? = nil,
                             headers: HTTPHeaders? = nil,
-                            completion: @escaping (AFDataResponse<T>) -> Void) -> DataRequest {
+                            completion: @escaping (AFDataResponse<T>) -> Void) -> DataRequest? {
         var currentRequest: DataRequest?
         if APIRouter.nowIsRefreshing, isBlackListRequest(url: url) {
             saveRequest {
@@ -74,7 +74,7 @@ class APIRouter {
             }
         }
         
-        return currentRequest ?? AF.request(URL(string: "google.com")!)
+        return currentRequest
     }
     
     func refreshToken(result: @escaping (AFDataResponse<Token>) -> Void) {
@@ -135,7 +135,7 @@ class APIRouter {
                                    encoding: ParameterEncoding = JSONEncoding.default,
                                    additionalQueryParams: Parameters? = nil,
                                    headers: HTTPHeaders? = nil,
-                                   completion: @escaping (AFDataResponse<T>) -> Void) -> DataRequest {
+                                   completion: @escaping (AFDataResponse<T>) -> Void) -> DataRequest? {
         self.cleanCache()
        
         var requestHeaders: HTTPHeaders = HTTPHeaders()
